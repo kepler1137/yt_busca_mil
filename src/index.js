@@ -18,19 +18,32 @@ app.set("views", path.join(__dirname, "ventanas"));
 //----------------------------------------------
 // iniciando el servidor
 app.listen(app.get("puerto"), async () => {
-    var errores = fs.readFileSync("src/errores.json", "utf-8");
-    var errores_json = JSON.parse(errores);
+    //--------------------------------------------------------
+    // LIMPIESA DE LOS ALAMCENADORES JSON
+    var array_limpio = [];
+    var string_limpio = JSON.stringify(array_limpio);
+    fs.writeFileSync("src/contador.json", string_limpio, "utf-8");
+    fs.writeFileSync("src/errores.json", string_limpio, "utf-8");
+    fs.writeFileSync("src/ubicada.json", string_limpio, "utf-8");
+    //--------------------------------------------------------
 
+    var erroresjson = fs.readFileSync("src/errores.json", "utf-8");
+    var errores_json = JSON.parse(erroresjson);
     // ------- Para verificación -------
     console.log("EL ERORRRR");
     console.log(errores_json);
 
-    var estados = fs.readFileSync("src/ubicada.json", "utf-8");
-    var estados_json = JSON.parse(estados);
-
+    var ubicadajson = fs.readFileSync("src/ubicada.json", "utf-8");
+    var ubicada_json = JSON.parse(ubicadajson);
     // ------- Para verificación -------
-    console.log("EL ESTADOOO");
-    console.log(estados_json);
+    console.log("EL UBICADO");
+    console.log(ubicada_json);
+
+    var contadorjson = fs.readFileSync("src/contador.json", "utf-8");
+    var contador_json = JSON.parse(contadorjson);
+    // ------- Para verificación -------
+    console.log("EL CONTADOR");
+    console.log(contador_json);
 
     var contador = 0; // contador de chats revisados
     var num_corridas = 100;
@@ -187,7 +200,6 @@ app.listen(app.get("puerto"), async () => {
                 var p = -1;
                 for (let k = 0; k < directos_live.length; k++) {
                     try {
-
                         //================================================
                         // contador de buscador a los chats
                         contador = contador + 1;
@@ -202,7 +214,7 @@ app.listen(app.get("puerto"), async () => {
                         var string_contador = JSON.stringify(array_contador);
                         fs.writeFileSync("src/contador.json", string_contador, "utf-8");
                         //================================================
-                        
+
                         await page.goto(directos_live[k], {
                             waitUntil: "domcontentloaded",
                         }); // ira abriendo el link en la misma pestaña abierta anteriormente con "var page = await browser.newPage();" (NO ABRIRA NUEVAS PESAÑAS) ASI SE ACELERA EL TIEMPO DE CARRIDA DEL PROGRAMA
