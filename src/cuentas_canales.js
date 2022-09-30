@@ -66,10 +66,42 @@ module.exports = {
     canales: [
         //"c/Meganoticiasoficial", // muchos interactuando
 
-        
         "c/MusicLabAmbient", // 3 DIRECTOS SOLO PARA PRUEBAS
-        
-        
+
+        "UCmZzJBHL3kC1z2PwsJOxFxA", // QT Relax Music
+
+        "UCvNogbKXdmFScYgEgLNU_4g", // larissa
+        "UCpxY5zDygRzDIP5bTtTI5rA", // italo disco
+        "UCxBAtJ0GmD6mhPlidFttkNA", // disco hits
+        "UCLo_UlgP6CF8sgAjkDM3gJw", // disco music
+        "UC-ITe1nKavRL6-Sl2aE3LKA", // music hits
+        "UCnrM0k6ORcRDod2ytUZ4b7g", // Golden Disco Dance
+
+        "UC3PTdlO_kKsClMt8hQ3w0PQ", // musica intemporal (LATINA)
+        "UCZWyDlLgsZxwYn_HeGDpptg", // BACHATA MELODIA, (LATINA)
+        "UCKBnLtJy1Z82hyGWBJkWbsw", // MUSICA BACHATA (LATINA)
+        "UC-yOf9S1O_UG67nTe7ifrJQ", // BACHATA MIX (LATINA)
+        "UCHEiLo-jHpipaO7lYX4DnTQ", // MELODIA MUSICAL (LATINA)
+
+        "c/BaladasRomanticasÉxitos", // Baladas Romanticas Éxitos (LATINA)
+        "UC7bX_RrH3zbdp5V4j5umGgw", // relax music (jazz paris)
+        "UCeGJ6v6KQt0s88hGKMfybuw", // Cozy Jazz Music
+
+        "c/PMBMusic", // PMB MUSIC (cristo rio bossa nova)
+        "c/musicbrokers", // music brokers
+        "c/PlaylistsKool", // bossa arena cafe playa
+        "c/ILoveYouVenice", // venecia vivo
+        "c/Teleportcamera", // Teleport.camera
+        "c/JackFrancisComposer", // OCB Relax Music
+        "user/YourRelaxMusic1", // Música Relajante, de Meditación, Música para Dormir
+        "c/CassioToledo", // CASSIO TOLEDO (CALMAR)
+        "UCeba3pJpMflswMBIANH1u7w", // Best Slow Rock (MAYA)
+        "c/Gentleman1", // gentleman
+
+        "c/JAZZBLUES37999", // JAZZ Y BLUES
+
+        "c/PianoMusica", // PIANO MUSICA
+
         "UC_GGWVDrDwGAunoFRiWbHDw", // soul relajante
         "UCS4kVH1srJ9h9nqJPG2iDLg", // sat-chit musica y mantras
         "c/MellowDream", // relajante (ford comander)
@@ -103,41 +135,6 @@ module.exports = {
         "UCIDO7u5X7sXXyqVU_KA4GwQ", // Romanticas Música
         "UC6g_Yf3YTagd95_DYFX6Yrw", // Music Hits All Time BOD MARLEY
         "c/MagicSpider", // Wonder EDM
-        "c/Gentleman1", // gentleman
-
-        "UCmZzJBHL3kC1z2PwsJOxFxA", // QT Relax Music
-
-        "UCvNogbKXdmFScYgEgLNU_4g", // larissa
-        "UCpxY5zDygRzDIP5bTtTI5rA", // italo disco
-        "UCxBAtJ0GmD6mhPlidFttkNA", // disco hits
-        "UCLo_UlgP6CF8sgAjkDM3gJw", // disco music
-        "UC-ITe1nKavRL6-Sl2aE3LKA", // music hits
-        "UCnrM0k6ORcRDod2ytUZ4b7g", // Golden Disco Dance
-
-        "UC3PTdlO_kKsClMt8hQ3w0PQ", // musica intemporal (LATINA)
-        "UCZWyDlLgsZxwYn_HeGDpptg", // BACHATA MELODIA, (LATINA)
-        "UCKBnLtJy1Z82hyGWBJkWbsw", // MUSICA BACHATA (LATINA)
-        "UC-yOf9S1O_UG67nTe7ifrJQ", // BACHATA MIX (LATINA)
-        "UCHEiLo-jHpipaO7lYX4DnTQ", // MELODIA MUSICAL (LATINA)
-
-        "c/BaladasRomanticasÉxitos", // Baladas Romanticas Éxitos (LATINA)
-        "UC7bX_RrH3zbdp5V4j5umGgw", // relax music (jazz paris)
-        "UCeGJ6v6KQt0s88hGKMfybuw", // Cozy Jazz Music
-
-        "c/PMBMusic", // PMB MUSIC (cristo rio bossa nova)
-        "c/musicbrokers", // music brokers
-        "c/PlaylistsKool", // bossa arena cafe playa
-        "c/ILoveYouVenice", // venecia vivo
-        "c/Teleportcamera", // Teleport.camera
-        "c/JackFrancisComposer", // OCB Relax Music
-        "user/YourRelaxMusic1", // Música Relajante, de Meditación, Música para Dormir
-        "c/CassioToledo", // CASSIO TOLEDO (CALMAR)
-        "UCeba3pJpMflswMBIANH1u7w", // Best Slow Rock (MAYA)
-
-        "c/JAZZBLUES37999", // JAZZ Y BLUES
-
-        "c/PianoMusica", // PIANO MUSICA
-        
         
     ],
 };

@@ -111,7 +111,7 @@ app.listen(app.get("puerto"), async () => {
             }
 
             // ------- Para verificación -------
-            console.log("los id imagen y nombre cuenta");
+            console.log("los id y nombre cuenta mil putas");
             console.log(array_id_cuenta_nombre);
 
             //-----------------------------------------------------------
@@ -139,11 +139,17 @@ app.listen(app.get("puerto"), async () => {
                 }
             }
 
+            const browser = await chromium.launch({ channel: "msedge" }); // FUNCIONA
+            const page = await browser.newPage();
+
             var n_sitios = sitios.length;
-            var n_directos = 0;
-            var directos_live = []; // estara vacio, para luego ser llenado
-            var j = -1;
+
+            var chat_putas_ahora = []; // chats donde la puta esta comentando ahora mismo
+            var p = -1; // ira agregando a la encontrada en el array: chat_putas_ahora
+
             for (let i = 0; i < n_sitios; i++) {
+                var directos_live = []; // sera llenado con los chats directos de este canal "i"
+                var j = -1;
                 var link_i = sitios[i]; // esta devuelta como string
                 var directos_i = await request(link_i);
                 var responseString = directos_i.toString();
@@ -166,7 +172,6 @@ app.listen(app.get("puerto"), async () => {
                     var id_directo = "";
                     //var posicion = responseString.indexOf("removedVideoId");
                     while (posicion != -1) {
-                        n_directos++;
                         posicion_fin_comi = responseString.indexOf(`"`, posicion + 16);
                         longitud = posicion_fin_comi - posicion + 16;
                         id_directo = responseString.substring(posicion + 16, posicion_fin_comi);
@@ -182,151 +187,153 @@ app.listen(app.get("puerto"), async () => {
                     console.log(link_i);
                     console.log("===================================");
                 }
-            }
 
-            // ------- Para verificación -------
-            console.log("el numero de CHATS EN DIRECTO es");
-            console.log(n_directos);
+                // ====================================================================
+                // UNA VEZ QUES SE CUENTA CO LOS LIVES DIRECTOS DE ESTE CANAL, PROCEDEMOS A BUSCAR SI AQUI SE ENCUENTRA MIL PUTAS
 
-            // ----------------------------------------------------------------------
-            // ----------------------------------------------------------------------
-            // BUSCAMOS EL ID CUENTA MIL PUTAS EN CADA UNO DE LOS DIRECTOS LIVE CHATS
+                if (directos_live.length > 0) {
+                    for (let k = 0; k < directos_live.length; k++) {
+                        try {
+                            //================================================
+                            // contador de buscador a los chats
+                            contador = contador + 1;
+                            var info =
+                                "CORRIDA #: " +
+                                (cc + 1) +
+                                " de " +
+                                num_corridas +
+                                " chat revisado #: " +
+                                contador;
+                            array_contador[0] = info.toString();
+                            var string_contador = JSON.stringify(array_contador);
+                            fs.writeFileSync("src/contador.json", string_contador, "utf-8");
+                            //================================================
+                            await page.waitForTimeout(3000); // para esperar el cargado de la pagina
+                            await page.goto(directos_live[k], {
+                                waitUntil: "load",
+                            }); // ira abriendo el link en la misma pestaña abierta anteriormente con "var page = await browser.newPage();" (NO ABRIRA NUEVAS PESAÑAS) ASI SE ACELERA EL TIEMPO DE CARRIDA DEL PROGRAMA
+                            await page.waitForTimeout(3000); // para esperar el cargado de la pagina
+                            await page.waitForSelector("#author-name"); // para que espere hasta que aparesca ese selector
 
-            // buscamos en cada uno de los directos
-            var chat_putas_ahora = []; // chats donde la puta esta comentando ahora mismo
-            if (directos_live.length > 0) {
-                const browser = await chromium.launch({ channel: "msedge" }); // FUNCIONA
+                            var contenido_body = await page.evaluate(() => {
+                                var texto = document.querySelector("body").innerHTML;
+                                return texto;
+                            });
+                            var body_string = contenido_body.toString();
 
-                const page = await browser.newPage();
+                            // buscamos en ese chat directo si esta presente cualquiera de las cuentas de mil putas
+                            for (let r = 0; r < puta_ids.length; r++) {
+                                var posicion_puta = body_string.indexOf(puta_ids[r]);
 
-                var p = -1;
-                for (let k = 0; k < directos_live.length; k++) {
-                    try {
-                        //================================================
-                        // contador de buscador a los chats
-                        contador = contador + 1;
-                        var info =
-                            "CORRIDA #: " +
-                            (cc + 1) +
-                            " de " +
-                            num_corridas +
-                            " chat revisado #: " +
-                            contador;
-                        array_contador[0] = info.toString();
-                        var string_contador = JSON.stringify(array_contador);
-                        fs.writeFileSync("src/contador.json", string_contador, "utf-8");
-                        //================================================
+                                if (posicion_puta != -1) {
+                                    //-----------------para el nombre de la cuenta------
+                                    // id_img_cuenta/nombre_cuenta
+                                    let array_id_img_nombre =
+                                        array_id_cuenta_nombre[r].split("/*/");
+                                    let nombre_cuenta_ok = array_id_img_nombre[1];
+                                    //--------------------------------------------------
+                                    p = p + 1;
+                                    chat_putas_ahora[p] =
+                                        directos_live[k] + "  " + nombre_cuenta_ok;
 
-                        await page.goto(directos_live[k], {
-                            waitUntil: "load",
-                        }); // ira abriendo el link en la misma pestaña abierta anteriormente con "var page = await browser.newPage();" (NO ABRIRA NUEVAS PESAÑAS) ASI SE ACELERA EL TIEMPO DE CARRIDA DEL PROGRAMA
+                                    console.log(
+                                        "AQUI ESTA UNA DE LAS MIL PUTAS: " +
+                                            nombre_cuenta_ok +
+                                            " CANAL " +
+                                            (i + 1) +
+                                            " de " +
+                                            n_sitios
+                                    );
+                                    console.log(directos_live[k]);
 
-                        await page.waitForSelector("#author-name"); // para que espere hasta que aparesca ese selector
-
-                        var contenido_body = await page.evaluate(() => {
-                            var texto = document.querySelector("body").innerHTML;
-                            return texto;
-                        });
-                        var body_string = contenido_body.toString();
-
-                        // buscamos en ese chat directo si esta presente cualquiera de las cuentas de mil putas
-                        for (let r = 0; r < puta_ids.length; r++) {
-                            var posicion_puta = body_string.indexOf(puta_ids[r]);
-
-                            if (posicion_puta != -1) {
-                                //-----------------para el nombre de la cuenta------
-                                // id_img_cuenta/nombre_cuenta
-                                let array_id_img_nombre = array_id_cuenta_nombre[r].split("/*/");
-                                let nombre_cuenta_ok = array_id_img_nombre[1];
-                                //--------------------------------------------------
-                                p = p + 1;
-                                chat_putas_ahora[p] = directos_live[k] + "  " + nombre_cuenta_ok;
-
-                                console.log(
-                                    "AQUI ESTA UNA DE LAS MIL PUTAS: " +
+                                    var informe =
                                         nombre_cuenta_ok +
                                         " " +
-                                        (k + 1) +
+                                        directos_live[k] +
+                                        " " +
+                                        new Date() +
+                                        " corr " +
+                                        (cc + 1) +
                                         " de " +
-                                        n_directos
-                                );
-                                console.log(directos_live[k]);
+                                        num_corridas;
 
-                                var informe =
-                                    nombre_cuenta_ok +
-                                    " " +
-                                    directos_live[k] +
-                                    " " +
-                                    new Date() +
-                                    " corr " +
-                                    cc +
-                                    " de 100";
+                                    //--------------------------------------------------
+                                    // lo agregamos a la base de datos JSON ACTUALIZANDOLO CONTANTEMENTE, asi no tendremos que esperar que revise TODOS los chats para cuando una vez que termine recien nos muestre los resultados
 
-                                //--------------------------------------------------
-                                // lo agregamos a la base de datos JSON ACTUALIZANDOLO CONTANTEMENTE, asi no tendremos que esperar que revise TODOS los chats para cuando una vez que termine recien nos muestre los resultados
+                                    // leemos lo que actualmente esta escrito en el json
+                                    var json_inicial = fs.readFileSync("src/ubicada.json", "utf-8"); // json_inicial ESTARA EN STRING
+                                    var estados = JSON.parse(json_inicial); // estados ESTARA CONVERTIDO EN JSON
 
-                                // leemos lo que actualmente esta escrito en el json
-                                var json_inicial = fs.readFileSync("src/ubicada.json", "utf-8"); // json_inicial ESTARA EN STRING
-                                var estados = JSON.parse(json_inicial); // estados ESTARA CONVERTIDO EN JSON
+                                    // Agregamos el nuevo avistamiento de la mil putas
+                                    estados.push(informe);
 
-                                // Agregamos el nuevo avistamiento de la mil putas
-                                estados.push(informe);
-
-                                // aqui guardamos agregando en el json lo que encontro
-                                // lo que hace es que si el archivo no existe lo crea y escribe los datos sobre el y si el archivo existe, entonces lo que hace es escribir sobre el nuevamente.
-                                var json_actualizado = JSON.stringify(estados);
-                                fs.writeFileSync("src/ubicada.json", json_actualizado, "utf-8");
+                                    // aqui guardamos agregando en el json lo que encontro
+                                    // lo que hace es que si el archivo no existe lo crea y escribe los datos sobre el y si el archivo existe, entonces lo que hace es escribir sobre el nuevamente.
+                                    var json_actualizado = JSON.stringify(estados);
+                                    fs.writeFileSync("src/ubicada.json", json_actualizado, "utf-8");
+                                    await page.waitForTimeout(3000); // para esperar el cargado de la pagina
+                                }
                             }
+
+                            //await browser.close();
+
+                            //---------------------------------------
+                        } catch (error) {
+                            console.log("EL ERROR SURGIO AL ANALIZAR EL CHAT:");
+
+                            console.log(directos_live[k]);
+                            console.log(
+                                "CANAL " + (i + 1) + " de " + n_sitios + " DETALLE DEL ERROR:"
+                            );
+                            console.error(error);
+                            await page.waitForTimeout(3000); // para esperar el cargado de la pagina
+                            console.log("vamos con la siguiente BUSQUEDA...");
+
+                            var info_err_a =
+                                "Error " +
+                                directos_live[k] +
+                                " CORRIDA " +
+                                (cc + 1) +
+                                " de " +
+                                num_corridas +
+                                " INFORME: " +
+                                error;
+
+                            array_servidor[0] = info_err_a.toString();
+                            var json_actualizado_err_a = JSON.stringify(array_servidor);
+                            fs.writeFileSync("src/errores.json", json_actualizado_err_a, "utf-8");
                         }
-
-                        //await browser.close();
-
-                        //---------------------------------------
-                    } catch (error) {
-                        console.log(
-                            "EL ERROR SURGIO AL ANALIZAR EL CHAT: " + (k + 1) + " de " + n_directos
-                        );
-                        console.log(directos_live[k]);
-                        console.log("DETALLE DEL ERROR:");
-                        console.error(error);
-                        console.log(
-                            "vamos con la siguiente BUSQUEDA..." + (k + 2) + " de " + n_directos
-                        );
-
-                        var info_err_a =
-                            "Error " + directos_live[k] + " CORRIDA " + cc + " INFORME: " + error;
-
-                        array_servidor[0]=info_err_a.toString();
-                        var json_actualizado_err_a = JSON.stringify(array_servidor);
-                        fs.writeFileSync("src/errores.json", json_actualizado_err_a, "utf-8");
                     }
                 }
 
-                await browser.close();
+                // ====================================================================
             }
+
+            await browser.close();
 
             console.log("LOS CHAT DONDE ANDA MIL PUTAS");
             console.log(chat_putas_ahora);
-
-            console.log("TERMINADO PERRA CORRIDA NUMERO " + cc);
+            console.log("TERMINADO CORRIDA NUMERO " + (cc + 1) + " de " + num_corridas);
         } catch (error) {
             // ------- Para verificación -------
-            console.log("ERRO SURGIDO EN LA CORRIDA " + cc + " informe:");
+            console.log(
+                "ERRO SURGIDO EN LA CORRIDA " + (cc + 1) + " de " + num_corridas + " informe:"
+            );
             console.log(error);
 
-            var info_err_b = "Error CORRIDA " + cc + " INFORME: " + error;
+            var info_err_b =
+                "Error CORRIDA " + (cc + 1) + " de " + num_corridas + " INFORME: " + error;
 
-            array_servidor[0]=info_err_b.toString();
+            array_servidor[0] = info_err_b.toString();
             var json_actualizado_err_b = JSON.stringify(array_servidor);
             fs.writeFileSync("src/errores.json", json_actualizado_err_b, "utf-8");
         }
 
-        var corrida = "CORRIDA NUMERO " + cc + " de " + 100;
+        var corrida = "CORRIDA NUMERO " + (cc + 1) + " de " + num_corridas;
 
-        array_servidor[0]=corrida.toString();
+        array_servidor[0] = corrida.toString();
         var estado_corrida_f = JSON.stringify(array_servidor);
         fs.writeFileSync("src/errores.json", estado_corrida_f, "utf-8");
-
     }
 });
 
