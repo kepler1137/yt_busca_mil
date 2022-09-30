@@ -48,9 +48,11 @@ app.listen(app.get("puerto"), async () => {
     var contador = 0; // contador de chats revisados
     var num_corridas = 100;
     var array_contador = [];
+    var array_servidor = [];
+
     for (let cc = 0; cc < num_corridas; cc++) {
         try {
-            console.log("SERVIDOR ESCUCHANDO EN EL PUERTO 3000 perritas");
+            console.log("SERVIDOR ESCUCHANDO EN EL PUERTO 3000");
 
             // agregar mas ids si es posible
             // SON LAS CUENTAS DE PUTAS QUE BUSCAR Y ENCONTRAR EN LOS CHATS DIRECTOS DE YT
@@ -216,7 +218,7 @@ app.listen(app.get("puerto"), async () => {
                         //================================================
 
                         await page.goto(directos_live[k], {
-                            waitUntil: "domcontentloaded",
+                            waitUntil: "load",
                         }); // ira abriendo el link en la misma pestaña abierta anteriormente con "var page = await browser.newPage();" (NO ABRIRA NUEVAS PESAÑAS) ASI SE ACELERA EL TIEMPO DE CARRIDA DEL PROGRAMA
 
                         await page.waitForSelector("#author-name"); // para que espere hasta que aparesca ese selector
@@ -294,10 +296,8 @@ app.listen(app.get("puerto"), async () => {
                         var info_err_a =
                             "Error " + directos_live[k] + " CORRIDA " + cc + " INFORME: " + error;
 
-                        var json_inicial_err_a = fs.readFileSync("src/errores.json", "utf-8");
-                        var estados_err_a = JSON.parse(json_inicial_err_a);
-                        estados_err_a.push(info_err_a);
-                        var json_actualizado_err_a = JSON.stringify(estados_err_a);
+                        array_servidor[0]=info_err_a.toString();
+                        var json_actualizado_err_a = JSON.stringify(array_servidor);
                         fs.writeFileSync("src/errores.json", json_actualizado_err_a, "utf-8");
                     }
                 }
@@ -316,19 +316,17 @@ app.listen(app.get("puerto"), async () => {
 
             var info_err_b = "Error CORRIDA " + cc + " INFORME: " + error;
 
-            var json_inicial_err_b = fs.readFileSync("src/errores.json", "utf-8");
-            var estados_err_b = JSON.parse(json_inicial_err_b);
-            estados_err_b.push(info_err_b);
-            var json_actualizado_err_b = JSON.stringify(estados_err_b);
+            array_servidor[0]=info_err_b.toString();
+            var json_actualizado_err_b = JSON.stringify(array_servidor);
             fs.writeFileSync("src/errores.json", json_actualizado_err_b, "utf-8");
         }
 
         var corrida = "CORRIDA NUMERO " + cc + " de " + 100;
-        var estado_corrida_i = fs.readFileSync("src/errores.json", "utf-8");
-        var estado_corrida = JSON.parse(estado_corrida_i);
-        estado_corrida.push(corrida);
-        var estado_corrida_f = JSON.stringify(estado_corrida);
+
+        array_servidor[0]=corrida.toString();
+        var estado_corrida_f = JSON.stringify(array_servidor);
         fs.writeFileSync("src/errores.json", estado_corrida_f, "utf-8");
+
     }
 });
 

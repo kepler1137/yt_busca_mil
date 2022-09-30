@@ -64,7 +64,11 @@ module.exports = {
     ],
 
     canales: [
+        //"c/Meganoticiasoficial", // muchos interactuando
+
+        
         "c/MusicLabAmbient", // 3 DIRECTOS SOLO PARA PRUEBAS
+        
         
         "UC_GGWVDrDwGAunoFRiWbHDw", // soul relajante
         "UCS4kVH1srJ9h9nqJPG2iDLg", // sat-chit musica y mantras
@@ -133,6 +137,7 @@ module.exports = {
         "c/JAZZBLUES37999", // JAZZ Y BLUES
 
         "c/PianoMusica", // PIANO MUSICA
+        
         
     ],
 };
