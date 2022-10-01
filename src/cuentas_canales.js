@@ -68,6 +68,8 @@ module.exports = {
 
         "c/MusicLabAmbient", // 3 DIRECTOS SOLO PARA PRUEBAS
 
+        "UC-yOf9S1O_UG67nTe7ifrJQ", // BACHATA MIX (LATINA)
+
         "UCmZzJBHL3kC1z2PwsJOxFxA", // QT Relax Music
 
         "UCvNogbKXdmFScYgEgLNU_4g", // larissa
@@ -80,7 +82,7 @@ module.exports = {
         "UC3PTdlO_kKsClMt8hQ3w0PQ", // musica intemporal (LATINA)
         "UCZWyDlLgsZxwYn_HeGDpptg", // BACHATA MELODIA, (LATINA)
         "UCKBnLtJy1Z82hyGWBJkWbsw", // MUSICA BACHATA (LATINA)
-        "UC-yOf9S1O_UG67nTe7ifrJQ", // BACHATA MIX (LATINA)
+        //"UC-yOf9S1O_UG67nTe7ifrJQ", // BACHATA MIX (LATINA)
         "UCHEiLo-jHpipaO7lYX4DnTQ", // MELODIA MUSICAL (LATINA)
 
         "c/BaladasRomanticasÉxitos", // Baladas Romanticas Éxitos (LATINA)

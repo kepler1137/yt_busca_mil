@@ -207,12 +207,16 @@ app.listen(app.get("puerto"), async () => {
                             array_contador[0] = info.toString();
                             var string_contador = JSON.stringify(array_contador);
                             fs.writeFileSync("src/contador.json", string_contador, "utf-8");
+
+                            console.log(info);
+                            
                             //================================================
                             await page.waitForTimeout(3000); // para esperar el cargado de la pagina
                             await page.goto(directos_live[k], {
                                 waitUntil: "load",
+                                timeout: 0, // para que no tenga limites en esperar el cargado de la pagina
                             }); // ira abriendo el link en la misma pestaña abierta anteriormente con "var page = await browser.newPage();" (NO ABRIRA NUEVAS PESAÑAS) ASI SE ACELERA EL TIEMPO DE CARRIDA DEL PROGRAMA
-                            await page.waitForTimeout(3000); // para esperar el cargado de la pagina
+                            //await page.waitForTimeout(3000); // para esperar el cargado de la pagina
                             await page.waitForSelector("#author-name"); // para que espere hasta que aparesca ese selector
 
                             var contenido_body = await page.evaluate(() => {
